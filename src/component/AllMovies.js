@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import lupa from "../assets/Lupa.png";
 import Heart from "../assets/Heart.png";
 import Shrek from "../assets/Shrek.png";
 import Hoje from "../assets/Hoje.png";
@@ -19,6 +20,23 @@ const MainBox = styled.div`
   flex-direction: column;
   margin-left: 3.4rem;
   margin-top: 2.5rem;
+`;
+const Search = styled.input`
+  width: 25rem;
+  margin-left: 0.9rem;
+  font-size: 0.9rem;
+  padding: 0.4rem;
+  background-color: #2c2c2c;
+  border-radius: 4px;
+  background-image: url(${lupa});
+  background-repeat: no-repeat;
+  background-size:1.18rem;
+  background-position: 0.3rem;
+  padding-left: 2rem;
+  border: none;
+  position: absolute;
+  top: 0.78rem;
+  left: 55.7rem;
 `;
 const H2 = styled.h2`
   font-size: 1.8rem;
@@ -149,14 +167,39 @@ export default class AllMovies extends React.Component {
         Img: JoiaBranco,
         id: 7
       }
-    ]
+    ],
+    searchMovies: []
   };
+
+  moviesFilter = (event) => {
+    this.setState({
+      searchMovies: this.state.movies
+    });
+    const filtro = this.state.movies.filter((item) => {
+      if (item.Name.toLowerCase().includes(event.target.value.toLowerCase())) {
+        return true;
+      }
+    });
+    this.setState({
+      searchMovies: filtro
+    });
+  };
+  componentDidMount() {
+    this.setState({
+      searchMovies: this.state.movies
+    });
+  }
   render() {
     return (
       <MainBox>
+        <Search
+          onChange={this.moviesFilter}
+          type="text"
+          placeholder="Pesquisar"
+        />
         <H2>Todos</H2>
         <MovieBox>
-          {this.state.movies.map((item, pos) => (
+          {this.state.searchMovies.map((item, pos) => (
             <Box key={pos}>
               <Image>
                 <Poster src={item.Image} alt="" />

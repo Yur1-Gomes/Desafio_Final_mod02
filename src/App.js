@@ -116,8 +116,8 @@ const Search = styled.input`
   background-color: #2c2c2c;
   border-radius: 4px;
   background-image: url(${lupa});
-  background-size:1.18rem;
   background-repeat: no-repeat;
+  background-size:1.18rem;
   background-position: 0.3rem;
   padding-left: 2rem;
   border: none;
@@ -182,7 +182,9 @@ export default class App extends React.Component {
           </IconBox>
           <SearchBox>
             <Add>Adicionar filme</Add>
-            <Search type="text" placeholder="Pesquisar" />
+            <Link to="/AllMovies">
+              <Search type="text" placeholder="Pesquisar" />
+            </Link>
             <User>
               <UserIcon src={user} alt="" />
               <Arrow src={arrow} alt="" />
